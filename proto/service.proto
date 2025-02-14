@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "./;pb";
+
+message UserRequest {
+    int64 id = 1;
+}
+
+message UserResponse {
+    int64 id = 1;
+}
+
+service AddService {
+    rpc GetUser(UserRequest) returns (UserResponse);
+}
