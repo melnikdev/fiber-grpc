@@ -4,14 +4,16 @@ package proto;
 
 option go_package = "./;pb";
 
-message UserRequest {
+message EventRequest {
     int64 id = 1;
 }
 
-message UserResponse {
+message EventResponse {
     int64 id = 1;
+    string name = 2;
+    bool active = 3;
 }
 
 service AddService {
-    rpc GetUser(UserRequest) returns (UserResponse);
+    rpc GetEvent(EventRequest) returns (EventResponse);
 }

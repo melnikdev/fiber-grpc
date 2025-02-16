@@ -14,8 +14,8 @@ type server struct {
 	proto.UnimplementedAddServiceServer
 }
 
-func (s *server) GetUser(ctx context.Context, in *proto.UserRequest) (*proto.UserResponse, error) {
-	return &proto.UserResponse{Id: in.Id}, nil
+func (s *server) GetEvent(ctx context.Context, in *proto.EventRequest) (*proto.EventResponse, error) {
+	return &proto.EventResponse{Id: 1, Name: "B-Day", Active: true}, nil
 }
 
 func main() {

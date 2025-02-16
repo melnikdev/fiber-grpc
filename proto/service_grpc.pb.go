@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AddService_GetUser_FullMethodName = "/proto.AddService/GetUser"
+	AddService_GetEvent_FullMethodName = "/proto.AddService/GetEvent"
 )
 
 // AddServiceClient is the client API for AddService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AddServiceClient interface {
-	GetUser(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (*UserResponse, error)
+	GetEvent(ctx context.Context, in *EventRequest, opts ...grpc.CallOption) (*EventResponse, error)
 }
 
 type addServiceClient struct {
@@ -37,10 +37,10 @@ func NewAddServiceClient(cc grpc.ClientConnInterface) AddServiceClient {
 	return &addServiceClient{cc}
 }
 
-func (c *addServiceClient) GetUser(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (*UserResponse, error) {
+func (c *addServiceClient) GetEvent(ctx context.Context, in *EventRequest, opts ...grpc.CallOption) (*EventResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UserResponse)
-	err := c.cc.Invoke(ctx, AddService_GetUser_FullMethodName, in, out, cOpts...)
+	out := new(EventResponse)
+	err := c.cc.Invoke(ctx, AddService_GetEvent_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *addServiceClient) GetUser(ctx context.Context, in *UserRequest, opts ..
 // All implementations must embed UnimplementedAddServiceServer
 // for forward compatibility.
 type AddServiceServer interface {
-	GetUser(context.Context, *UserRequest) (*UserResponse, error)
+	GetEvent(context.Context, *EventRequest) (*EventResponse, error)
 	mustEmbedUnimplementedAddServiceServer()
 }
 
@@ -62,8 +62,8 @@ type AddServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAddServiceServer struct{}
 
-func (UnimplementedAddServiceServer) GetUser(context.Context, *UserRequest) (*UserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+func (UnimplementedAddServiceServer) GetEvent(context.Context, *EventRequest) (*EventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEvent not implemented")
 }
 func (UnimplementedAddServiceServer) mustEmbedUnimplementedAddServiceServer() {}
 func (UnimplementedAddServiceServer) testEmbeddedByValue()                    {}
@@ -86,20 +86,20 @@ func RegisterAddServiceServer(s grpc.ServiceRegistrar, srv AddServiceServer) {
 	s.RegisterService(&AddService_ServiceDesc, srv)
 }
 
-func _AddService_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UserRequest)
+func _AddService_GetEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EventRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AddServiceServer).GetUser(ctx, in)
+		return srv.(AddServiceServer).GetEvent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AddService_GetUser_FullMethodName,
+		FullMethod: AddService_GetEvent_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AddServiceServer).GetUser(ctx, req.(*UserRequest))
+		return srv.(AddServiceServer).GetEvent(ctx, req.(*EventRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -112,8 +112,8 @@ var AddService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AddServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetUser",
-			Handler:    _AddService_GetUser_Handler,
+			MethodName: "GetEvent",
+			Handler:    _AddService_GetEvent_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
