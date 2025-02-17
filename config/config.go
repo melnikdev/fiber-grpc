@@ -9,10 +9,20 @@ import (
 
 type Config struct {
 	Server *Server
+	Db     *Db
 }
 
 type Server struct {
 	Port int
+}
+type Db struct {
+	Host     string
+	Port     int
+	User     string
+	Password string
+	DBName   string
+	SSLMode  string
+	TimeZone string
 }
 
 var once sync.Once
